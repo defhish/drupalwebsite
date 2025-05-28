@@ -1,0 +1,12 @@
+/vendor/
+/sites/default/files/
+/sites/*/settings*.php
+/node_modules/
+*.log
+*.sqlite
+.DS_Store
+.env
+/vendor/
+/sites/default/files/
+/.env
+/web/sites/default/settings.local.php

@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function content_stats_theme($existing, $type, $theme, $path) {
+  return [
+    'content_stats' => [
+      'variables' => ['stats' => []],
+      'template' => 'content-stats',
+    ],
+  ];
+}

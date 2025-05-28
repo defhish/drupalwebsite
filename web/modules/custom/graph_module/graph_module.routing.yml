@@ -1,0 +1,15 @@
+graph_module.input_form:
+  path: "/graph/input"
+  defaults:
+    _form: '\Drupal\graph_module\Form\GraphInputForm'
+    _title: "Graph Input Form"
+  requirements:
+    _permission: "access content"
+
+graph_module.display:
+  path: "/graph/display"
+  defaults:
+    _controller: '\Drupal\graph_module\Controller\GraphDisplayController::display'
+    _title: "Graph Display"
+  requirements:
+    _permission: "access content"

@@ -1,0 +1,6 @@
+content_stats.dashboard:
+  title: 'Content Statistics'
+  route_name: content_stats.dashboard
+  menu_name: admin
+  weight: 100
+  description: 'View content type distribution analytics'

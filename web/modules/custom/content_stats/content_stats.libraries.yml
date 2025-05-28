@@ -1,0 +1,13 @@
+content_stats:
+  version: 1.x
+  header: true
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js: { type: external, minified: true }
+    js/content-stats.js: {}
+  css:
+    component:
+      css/content-stats.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

@@ -1,0 +1,14 @@
+/* Fixed container with explicit dimensions */
+.graph-container {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Fixed height */
+  margin: 20px 0;
+}
+
+/* Canvas should fill container */
+.graph-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}

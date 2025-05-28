@@ -1,0 +1,31 @@
+<div class="content-stats">
+  <h2>{{ 'Content Statistics'|t }}</h2>
+
+  {# Ensure this container exists #}
+  <div id="content-stats-container" class="chart-container">
+    {# Canvas will be inserted here by JavaScript #}
+  </div>
+
+  <div class="stats-table">
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'Content Type'|t }}</th>
+          <th>{{ 'Count'|t }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for stat in stats %}
+          <tr>
+            <td>{{ stat.label }}</td>
+            <td>{{ stat.count }}</td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="2">No content types found</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

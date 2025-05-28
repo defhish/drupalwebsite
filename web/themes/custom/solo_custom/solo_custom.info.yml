@@ -1,0 +1,5 @@
+name: 'Solo Custom'
+type: theme
+base theme: solo
+core_version_requirement: ^11
+

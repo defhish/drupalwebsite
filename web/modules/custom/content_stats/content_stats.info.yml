@@ -1,0 +1,8 @@
+name: Content Statistics
+description: "Visualizes content type distribution and metrics"
+package: Analytics
+type: module
+core_version_requirement: ^9 || ^11
+dependencies:
+  - drupal:node
+  - drupal:user

@@ -1,0 +1,6 @@
+name: Graph Module
+description: 'A module that collects user input and displays graphical representations.'
+type: module
+core_version_requirement: ^10 || ^11
+package: Custom
+

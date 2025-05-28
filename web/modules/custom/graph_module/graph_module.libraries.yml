@@ -1,0 +1,14 @@
+graph_render:
+  version: 1.x
+  header: true
+  css:
+    component:
+      css/graph-module.css: {}
+  js:
+    https://cdn.jsdelivr.net/npm/chart.js: { type: external, minified: true }
+    js/graph-render.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once

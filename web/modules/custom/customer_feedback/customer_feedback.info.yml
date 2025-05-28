@@ -1,0 +1,8 @@
+name: 'Customer Form Approval'
+description: 'Takes customer form and lets admin approve'
+package: custom
+type: module
+core_version_requirement: ^10 || ^11
+version: 1.0
+
+
