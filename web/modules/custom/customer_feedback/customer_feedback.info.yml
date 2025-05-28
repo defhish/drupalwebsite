@@ -1,8 +1,8 @@
-name: 'Customer Form Approval'
-description: 'Takes customer form and lets admin approve'
-package: custom
+name: Customer Feedback
 type: module
-core_version_requirement: ^10 || ^11
-version: 1.0
-
-
+description: "Manages customer feedback submissions."
+core_version_requirement: ^9 || ^11
+package: Custom
+dependencies:
+  - drupal:node
+  - drupal:user
