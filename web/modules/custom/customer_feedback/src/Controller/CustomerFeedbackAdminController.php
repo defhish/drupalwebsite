@@ -29,8 +29,26 @@ class CustomerFeedbackAdminController extends ControllerBase
         );
     }
 
+    public function delete(CustomerFeedback $customer_feedback)
+    {
+        $customer_feedback->delete();
+        $this->messenger()->addStatus($this->t('Feedback entry deleted.'));
+        return $this->redirect('customer_feedback.admin');
+    }
+
     public function list()
     {
+        $build = [];
+
+        // Add the inline dropdown options form at the top
+        $form = \Drupal::formBuilder()->getForm('Drupal\customer_feedback\Form\InlineDropdownOptionsForm');
+        $build['dropdown_options_form'] = [
+            '#type' => 'details',
+            '#title' => $this->t('Manage Dropdown Options'),
+            '#open' => TRUE,
+            'form' => $form,
+        ];
+
         $storage = $this->entityTypeManager->getStorage('customer_feedback');
         $query = $storage->getQuery()
             ->sort('created', 'ASC')
@@ -68,11 +86,21 @@ class CustomerFeedbackAdminController extends ControllerBase
                                 'title' => $this->t('Reject'),
                                 'url' => Url::fromRoute('customer_feedback.reject', ['customer_feedback' => $feedback->id()]),
                             ],
+                            'delete' => [
+                                'title' => $this->t('Delete'),
+                                'url' => Url::fromRoute('customer_feedback.delete', ['customer_feedback' => $feedback->id()]),
+                            ],
                         ],
                     ],
                 ],
             ];
         }
+
+        // Count of current entries.
+        $count = count($feedbacks);
+        $build['summary'] = [
+            '#markup' => '<p><strong>' . $this->t('Total feedback entries: @count', ['@count' => $count]) . '</strong></p>',
+        ];
 
         $build['table'] = [
             '#type' => 'table',
@@ -94,6 +122,27 @@ class CustomerFeedbackAdminController extends ControllerBase
     public function approve(CustomerFeedback $customer_feedback)
     {
         $customer_feedback->set('status', 'approved')->save();
+
+        // Send email directly.
+        $mailManager = \Drupal::service('plugin.manager.mail');
+        $module = 'customer_feedback';
+        $key = 'status_update';
+        $to = $customer_feedback->get('email')->value;
+        $langcode = \Drupal::languageManager()->getDefaultLanguage()->getId();
+
+        $params = [
+            'subject' => $this->t('Your feedback has been approved'),
+            'message' => $this->t('Hello @name, your feedback has been approved. Thank you for your submission!', ['@name' => $customer_feedback->get('name')->value]),
+        ];
+
+        $result = $mailManager->mail($module, $key, $to, $langcode, $params);
+
+        if ($result['result'] !== true) {
+            \Drupal::logger('customer_feedback')->error('Error sending approval email to %email', ['%email' => $to]);
+        } else {
+            \Drupal::logger('customer_feedback')->notice('Approval email sent to %email', ['%email' => $to]);
+        }
+
         $this->messenger()->addStatus($this->t('Feedback has been approved.'));
         return $this->redirect('customer_feedback.admin');
     }
@@ -101,6 +150,27 @@ class CustomerFeedbackAdminController extends ControllerBase
     public function reject(CustomerFeedback $customer_feedback)
     {
         $customer_feedback->set('status', 'rejected')->save();
+
+        // Send email directly.
+        $mailManager = \Drupal::service('plugin.manager.mail');
+        $module = 'customer_feedback';
+        $key = 'status_update';
+        $to = $customer_feedback->get('email')->value;
+        $langcode = \Drupal::languageManager()->getDefaultLanguage()->getId();
+
+        $params = [
+            'subject' => $this->t('Your feedback has been rejected'),
+            'message' => $this->t('Hello @name, your feedback has been rejected. Thank you for your submission!', ['@name' => $customer_feedback->get('name')->value]),
+        ];
+
+        $result = $mailManager->mail($module, $key, $to, $langcode, $params);
+
+        if ($result['result'] !== true) {
+            \Drupal::logger('customer_feedback')->error('Error sending rejection email to %email', ['%email' => $to]);
+        } else {
+            \Drupal::logger('customer_feedback')->notice('Rejection email sent to %email', ['%email' => $to]);
+        }
+
         $this->messenger()->addStatus($this->t('Feedback has been rejected.'));
         return $this->redirect('customer_feedback.admin');
     }

@@ -37,3 +37,23 @@ customer_feedback.reject:
     parameters:
       customer_feedback:
         type: entity:customer_feedback
+
+customer_feedback.delete:
+  path: "/admin/content/customer-feedback/{customer_feedback}/delete"
+  defaults:
+    _title: "Delete Feedback"
+    _controller: '\Drupal\customer_feedback\Controller\CustomerFeedbackAdminController::delete'
+  requirements:
+    _permission: "administer customer feedback"
+  options:
+    parameters:
+      customer_feedback:
+        type: entity:customer_feedback
+        
+customer_feedback.dropdown_config:
+  path: '/admin/config/customer-feedback/dropdown-options'
+  defaults:
+    _form: '\Drupal\customer_feedback\Form\CustomerFeedbackConfigForm'
+    _title: 'Dropdown Options'
+  requirements:
+    _permission: 'administer site configuration'

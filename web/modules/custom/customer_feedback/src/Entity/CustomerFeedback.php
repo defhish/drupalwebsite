@@ -41,54 +41,72 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   }
  * )
  */
-class CustomerFeedback extends ContentEntityBase
-{
+class CustomerFeedback extends ContentEntityBase {
 
-    /**
-     * Defines base fields for the Customer Feedback entity.
-     */
-    public static function baseFieldDefinitions(EntityTypeInterface $entity_type)
-    {
-        $fields = parent::baseFieldDefinitions($entity_type);
+  /**
+   * Defines base fields for the Customer Feedback entity.
+   */
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
 
-        $fields['name'] = BaseFieldDefinition::create('string')
-            ->setLabel(t('Name'))
-            ->setRequired(true);
+    $fields['name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Name'))
+      ->setRequired(TRUE);
 
-        $fields['email'] = BaseFieldDefinition::create('email')
-            ->setLabel(t('Email'))
-            ->setRequired(true);
+    $fields['email'] = BaseFieldDefinition::create('email')
+      ->setLabel(t('Email'))
+      ->setRequired(TRUE);
 
-        $fields['phone'] = BaseFieldDefinition::create('string')
-            ->setLabel(t('Phone'));
+    $fields['phone'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Phone'));
 
-        $fields['address'] = BaseFieldDefinition::create('string_long')
-            ->setLabel(t('Address'));
+    $fields['address'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Address'));
 
-        $fields['message'] = BaseFieldDefinition::create('string_long')
-            ->setLabel(t('Message'));
+    $fields['message'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Message'));
 
-        $fields['status'] = BaseFieldDefinition::create('list_string')
-            ->setLabel(t('Status'))
-            ->setDefaultValue('pending')
-            ->setSettings([
-                'allowed_values' => [
-                    'pending' => 'Pending',
-                    'approved' => 'Approved',
-                    'rejected' => 'Rejected',
-                ],
-            ]);
+    $fields['source'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Feedback Type'))
+      ->setDescription(t('The option selected from the feedback type dropdown.'))
+      ->setSettings([
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => 5,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => 5,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
-        $fields['admin_notes'] = BaseFieldDefinition::create('string_long')
-            ->setLabel(t('Admin Notes'));
+    $fields['status'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Status'))
+      ->setDefaultValue('pending')
+      ->setSettings([
+        'allowed_values' => [
+          'pending' => 'Pending',
+          'approved' => 'Approved',
+          'rejected' => 'Rejected',
+        ],
+      ]);
 
-        $fields['created'] = BaseFieldDefinition::create('created')
-            ->setLabel(t('Created'));
+    $fields['admin_notes'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Admin Notes'));
 
-        $fields['changed'] = BaseFieldDefinition::create('changed')
-            ->setLabel(t('Changed'));
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Created'));
 
-        return $fields;
-    }
+    $fields['changed'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Changed'));
+
+    return $fields;
+  }
 
 }

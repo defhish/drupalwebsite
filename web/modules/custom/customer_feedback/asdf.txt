@@ -1,0 +1,24 @@
+Dear Sir,Please find below the aspects pertaining to my activities over the day:
+
+Highlights of the Day:
+
+Successfully enabled and configured the email functionality in the local Drupal environment.
+
+Implemented automatic email notifications to the admin (admin1@gmail.com) whenever a new feedback form is submitted.
+
+The email contains a direct link to the admin approval interface, with logic to redirect non-logged-in users to the login page first.
+
+Verified email delivery and ensured admin and user emails are triggered appropriately on feedback submission and status update (approve/reject).
+
+
+Lowlights of the Day:
+
+Initial confusion and delay while setting up the email system due to local environment limitations.
+
+Minor issues with redirect logic which required additional adjustments to ensure proper user flow.
+
+Obstacles Faced Over the Day:
+
+Took some time to figure out how to get email notifications working properly in the local development environment.
+
+Had to troubleshoot redirect issues to make sure users who aren’t logged in are sent to the login page before accessing admin pages

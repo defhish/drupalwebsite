@@ -39,6 +39,10 @@ class CustomerFeedbackViewBuilder extends EntityViewBuilder
             '#type' => 'markup',
             '#markup' => '<p><strong>Message:</strong> ' . $entity->get('message')->value . '</p>',
         ];
+        $build['source'] = [
+            '#type' => 'markup',
+            '#markup' => '<p><strong>Feedback Type:</strong> ' . $entity->get('source')->value . '</p>',
+        ];
         $build['status'] = [
             '#type' => 'markup',
             '#markup' => '<p><strong>Status:</strong> ' . $entity->get('status')->value . '</p>',
